@@ -10,6 +10,9 @@ import { LandingPage } from './components/LandingPage';
 import { User, SolarPackage, OwnerSettings, Deposit, Withdrawal, ReferralRecord, UserInvestment } from './types';
 import { Sun, ShieldCheck, Zap, Heart, CheckCircle2 } from 'lucide-react';
 
+// Live Railway Backend URL
+const API_BASE_URL = 'https://solar-backend-production-f93f.up.railway.app';
+
 // Admin Login Gate for Restricted Access
 function AdminLoginGate({ onLoginSuccess }: { onLoginSuccess: (user: User) => void }) {
   const [username, setUsername] = useState('');
@@ -23,7 +26,7 @@ function AdminLoginGate({ onLoginSuccess }: { onLoginSuccess: (user: User) => vo
     setLoading(true);
 
     try {
-      const res = await fetch('solar-backend-production-f93f.up.railway.app', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -157,7 +160,7 @@ export default function App() {
   const fetchInitialData = async () => {
     try {
       // 1. Public packages & owner settings
-      const pubRes = await fetch('/api/public/packages');
+      const pubRes = await fetch(`${API_BASE_URL}/api/public/packages`);
       if (pubRes.ok) {
         const pubData = await pubRes.json();
         setSolarPackages(pubData.packages || []);
@@ -170,7 +173,7 @@ export default function App() {
       // 3. Restore client session if available
       const savedClientId = localStorage.getItem('gw_active_client_id');
       if (savedClientId) {
-        const profileRes = await fetch(`/api/client/profile/${savedClientId}`);
+        const profileRes = await fetch(`${API_BASE_URL}/api/client/profile/${savedClientId}`);
         if (profileRes.ok) {
           const profileData = await profileRes.json();
           setClientUser(profileData.user);
@@ -187,7 +190,7 @@ export default function App() {
 
   const fetchUserProfile = async (userId: string) => {
     try {
-      const res = await fetch(`/api/client/profile/${userId}`);
+      const res = await fetch(`${API_BASE_URL}/api/client/profile/${userId}`);
       if (res.ok) {
         const data = await res.json();
         setClientUser(data.user);
@@ -202,27 +205,27 @@ export default function App() {
 
   const fetchAdminData = async () => {
     try {
-      const depRes = await fetch('/api/admin/deposits');
+      const depRes = await fetch(`${API_BASE_URL}/api/admin/deposits`);
       if (depRes.ok) {
         const depData = await depRes.json();
         setPendingDeposits(depData.pendingDeposits || []);
         setAllDeposits(depData.allDeposits || []);
       }
 
-      const wdRes = await fetch('/api/admin/withdrawals');
+      const wdRes = await fetch(`${API_BASE_URL}/api/admin/withdrawals`);
       if (wdRes.ok) {
         const wdData = await wdRes.json();
         setPendingWithdrawals(wdData.pendingWithdrawals || []);
         setAllWithdrawals(wdData.allWithdrawals || []);
       }
 
-      const usersRes = await fetch('/api/admin/users');
+      const usersRes = await fetch(`${API_BASE_URL}/api/admin/users`);
       if (usersRes.ok) {
         const uData = await usersRes.json();
         setUsersList(uData.users || []);
       }
 
-      const settingsRes = await fetch('/api/admin/settings');
+      const settingsRes = await fetch(`${API_BASE_URL}/api/admin/settings`);
       if (settingsRes.ok) {
         const sData = await settingsRes.json();
         if (sData.settings) setOwnerSettings(sData.settings);
@@ -264,7 +267,7 @@ export default function App() {
   // Admin Actions
   const handleApproveDeposit = async (depositId: string) => {
     try {
-      const res = await fetch('/api/admin/approve-deposit', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/approve-deposit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ deposit_id: depositId }),
@@ -282,7 +285,7 @@ export default function App() {
 
   const handleRejectDeposit = async (depositId: string) => {
     try {
-      const res = await fetch('/api/admin/reject-deposit', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/reject-deposit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ deposit_id: depositId }),
@@ -299,7 +302,7 @@ export default function App() {
 
   const handleMarkPaidWithdrawal = async (withdrawalId: string) => {
     try {
-      const res = await fetch('/api/admin/mark-paid', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/mark-paid`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ withdrawal_id: withdrawalId }),
@@ -317,7 +320,7 @@ export default function App() {
 
   const handleRejectWithdrawal = async (withdrawalId: string) => {
     try {
-      const res = await fetch('/api/admin/reject-withdrawal', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/reject-withdrawal`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ withdrawal_id: withdrawalId }),
@@ -334,7 +337,7 @@ export default function App() {
 
   const handleSaveOwnerSettings = async (newSettings: OwnerSettings) => {
     try {
-      const res = await fetch('/api/admin/settings', {
+      const res = await fetch(`${API_BASE_URL}/api/admin/settings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newSettings),
@@ -353,7 +356,7 @@ export default function App() {
   const handleTriggerDailyProfit = async () => {
     setIsTriggeringProfit(true);
     try {
-      const res = await fetch('/api/admin/trigger-daily-profit', { method: 'POST' });
+      const res = await fetch(`${API_BASE_URL}/api/admin/trigger-daily-profit`, { method: 'POST' });
       const data = await res.json();
       if (res.ok) {
         showToast('✨ 5% Daily Yield credited across all client wallets!');
@@ -362,7 +365,8 @@ export default function App() {
       }
     } catch (err) {
       console.error(err);
-    } finally {
+    } font-mono
+    finally {
       setIsTriggeringProfit(false);
     }
   };
@@ -382,7 +386,7 @@ export default function App() {
     }
 
     try {
-      const res = await fetch('/api/client/invest', {
+      const res = await fetch(`${API_BASE_URL}/api/client/invest`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: clientUser.id, package_id: pkg.id }),
