@@ -1,1 +1,2 @@
-
+/api/*  https://solar-backend-production-f93f.up.railway.app/api/:splat  200!
+/*      /index.html                                                         200
