@@ -1,1 +1,44 @@
+[build]
+  publish = "public"
+  command = "echo 'No build step'"
 
+[[redirects]]
+  from = "/packages/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/packages/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/deposits/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/deposits/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/withdrawals/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/withdrawals/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/users/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/users/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/settings/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/settings/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://solar-backend-production-f93f.up.railway.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
