@@ -1,42 +1,6 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
-
-[[redirects]]
-  from = "/packages/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/packages/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/deposits/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/deposits/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/withdrawals/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/withdrawals/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/users/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/users/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/settings/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/settings/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/api/*"
-  to = "https://solar-backend-production-f93f.up.railway.app/api/:splat"
-  status = 200
-  force = true
+  command = "echo 'No build script needed'"
+  publish = "."
 
 [[redirects]]
   from = "/*"
