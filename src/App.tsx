@@ -23,7 +23,7 @@ function AdminLoginGate({ onLoginSuccess }: { onLoginSuccess: (user: User) => vo
     setLoading(true);
 
     try {
-      const res = await fetch('/api/client/login', {
+      const res = await fetch('solar-backend-production-f93f.up.railway.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
