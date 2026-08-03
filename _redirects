@@ -1,2 +1,7 @@
-/api/*  https://solar-backend-production-f93f.up.railway.app/api/:splat  200!
-/*      /index.html                                                         200
+/packages     https://solar-backend-production-f93f.up.railway.app/packages     200!
+/deposits     https://solar-backend-production-f93f.up.railway.app/deposits     200!
+/withdrawals  https://solar-backend-production-f93f.up.railway.app/withdrawals  200!
+/users        https://solar-backend-production-f93f.up.railway.app/users        200!
+/settings     https://solar-backend-production-f93f.up.railway.app/settings     200!
+/api/*        https://solar-backend-production-f93f.up.railway.app/api/:splat   200!
+/*            /index.html                                                       200
